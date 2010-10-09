@@ -60,6 +60,7 @@ version 0.001
     # Uses the default values obtained from configuration file
     my $wn = WebService::Notifo->new;
     
+    # ... or just pass them in
     my $wn = WebService::Notifo->new(
         api_key => 'api_key_value',
         user    => 'api_user',
