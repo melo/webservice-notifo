@@ -27,7 +27,7 @@ sub _do_request {
   unless ($ua = $self->{ua}) {
     $self->{ua} = $ua = LWP::UserAgent->new;
     $ua->env_proxy;
-    $ua->agent("WebService::Notifo $VERSION");
+    $ua->agent("WebService::Notifo $WebService::Notifo::VERSION");
   }
   
   return;
