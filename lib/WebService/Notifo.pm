@@ -12,28 +12,37 @@ use LWP::UserAgent;
 
 sub send_notification {
   my $self = shift;
-  
+
   my $req = $self->SUPER::send_notification(@_);
   my $res = $self->_do_request($req);
   return $res if delete $res->{connection_error};
-  
-  return $self->parse_response($res);
+
+  return $self->parse_response(%$res);
 }
 
 sub _do_request {
   my ($self, $req) = @_;
-  my $ua;
-  
-  unless ($ua = $self->{ua}) {
-    $self->{ua} = $ua = LWP::UserAgent->new;
+  my $ua = $self->{ua};
+
+  unless ($ua) {
+    $ua = $self->{ua} = LWP::UserAgent->new;
     $ua->env_proxy;
     $ua->agent("WebService::Notifo $WebService::Notifo::VERSION");
   }
-  
-  return;
+
+  my ($meth, $url, $args, $hdrs) = @$req{qw(method url args headers)};
+  $meth = lc($meth);
+  my $res = $ua->$meth($url, $args, %$hdrs);
+
+  return {
+    http_response_code => $res->code,
+    http_body          => $res->decoded_content || $res->content,
+    http_status_line   => $res->status_line,
+  };
 }
 
 1;
+
 
 __END__
 =pod
@@ -45,6 +54,41 @@ WebService::Notifo - client for the Notifo.com API
 =head1 VERSION
 
 version 0.001
+
+=head1 SYNOPSIS
+
+    # Uses the default values obtained from configuration file
+    my $wn = WebService::Notifo->new;
+    
+    my $wn = WebService::Notifo->new(
+        api_key => 'api_key_value',
+        user    => 'api_user',
+    );
+    
+    my $res = $wn->send_notification(msg => 'my nottification text');
+
+=head1 DESCRIPTION
+
+A client for the L<http://notifo.com/> API.
+
+=head1 METHODS
+
+=head2 send_notification
+
+Sends a notification. See
+L<< Protocol::Notifo->send_notification()|Protocol::Notifo/send_notification >>
+for list of parameters and a explanation of the response.
+
+=constructor new
+
+Creates a new C<WebService::Notifo> object. See
+L<< Protocol::Notifo->new()|Protocol::Notifo/new >>
+for a explanation of the parameters and the configuration file used for
+default values.
+
+=head1 SEE ALSO
+
+L<Protocol::Notifo>
 
 =head1 AUTHOR
 
