@@ -71,6 +71,15 @@ version 0.001
 
 A client for the L<http://notifo.com/> API.
 
+=head1 CONSTRUCTORS
+
+=head2 new
+
+Creates a new C<WebService::Notifo> object. See
+L<< Protocol::Notifo->new()|Protocol::Notifo/new >>
+for a explanation of the parameters and the configuration file used for
+default values.
+
 =head1 METHODS
 
 =head2 send_notification
@@ -78,13 +87,6 @@ A client for the L<http://notifo.com/> API.
 Sends a notification. See
 L<< Protocol::Notifo->send_notification()|Protocol::Notifo/send_notification >>
 for list of parameters and a explanation of the response.
-
-=constructor new
-
-Creates a new C<WebService::Notifo> object. See
-L<< Protocol::Notifo->new()|Protocol::Notifo/new >>
-for a explanation of the parameters and the configuration file used for
-default values.
 
 =head1 SEE ALSO
 
