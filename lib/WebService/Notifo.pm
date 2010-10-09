@@ -30,7 +30,7 @@ sub _do_request {
     $ua->agent("WebService::Notifo $VERSION");
   }
   
-  return ...;
+  return;
 }
 
 1;
