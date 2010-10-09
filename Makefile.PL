@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker 6.31;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'client for the Notifo.com API',
+  'ABSTRACT' => 'client for the notifo.com API',
   'AUTHOR' => 'Pedro Melo <melo@simplicidade.org>',
   'BUILD_REQUIRES' => {},
   'CONFIGURE_REQUIRES' => {

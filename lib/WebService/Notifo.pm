@@ -3,7 +3,7 @@ BEGIN {
   $WebService::Notifo::VERSION = '0.001';
 }
 
-# ABSTRACT: client for the Notifo.com API
+# ABSTRACT: client for the notifo.com API
 
 use strict;
 use warnings;
@@ -49,7 +49,7 @@ __END__
 
 =head1 NAME
 
-WebService::Notifo - client for the Notifo.com API
+WebService::Notifo - client for the notifo.com API
 
 =head1 VERSION
 
