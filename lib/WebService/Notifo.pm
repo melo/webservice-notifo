@@ -15,8 +15,6 @@ sub send_notification {
 
   my $req = $self->SUPER::send_notification(@_);
   my $res = $self->_do_request($req);
-  return $res if delete $res->{connection_error};
-
   return $self->parse_response(%$res);
 }
 
@@ -30,9 +28,8 @@ sub _do_request {
     $ua->agent("WebService::Notifo $WebService::Notifo::VERSION");
   }
 
-  my ($meth, $url, $args, $hdrs) = @$req{qw(method url args headers)};
-  $meth = lc($meth);
-  my $res = $ua->$meth($url, $args, %$hdrs);
+  my $http_req = HTTP::Request->new(@$req{qw(method url headers body)});
+  my $res      = $ua->simple_request($http_req);
 
   return {
     http_response_code => $res->code,
