@@ -27,8 +27,6 @@ sub send_notification {
 
   my $req = $self->SUPER::send_notification(@_);
   my $res = $self->_do_request($req);
-  return $res if delete $res->{connection_error};
-
   return $self->parse_response(%$res);
 }
 
