@@ -42,9 +42,8 @@ sub _do_request {
     $ua->agent("WebService::Notifo $WebService::Notifo::VERSION");
   }
 
-  my ($meth, $url, $args, $hdrs) = @$req{qw(method url args headers)};
-  $meth = lc($meth);
-  my $res = $ua->$meth($url, $args, %$hdrs);
+  my $http_req = HTTP::Request->new(@$req{qw(method url headers body)});
+  my $res      = $ua->simple_request($http_req);
 
   return {
     http_response_code => $res->code,
